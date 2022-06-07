@@ -1,0 +1,18 @@
+#!/bin/sh
+
+username="YOUR_USERNAME"
+password="YOUR_PASSWORD"
+
+curl -v 'http://172.16.1.1:8090/login.xml' \
+  -H 'Accept: */*' \
+    -H 'Accept-Language: en-GB,en-US;q=0.9,en;q=0.8' \
+      -H 'Connection: keep-alive' \
+        -H 'Content-Type: application/x-www-form-urlencoded' \
+          -H 'DNT: 1' \
+            -H 'Origin: http://172.16.1.1:8090' \
+              -H 'Referer: http://172.16.1.1:8090/' \
+                -H 'Sec-GPC: 1' \
+                  -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36' \
+                  --data-raw "mode=191&username=$username&password=$password&a=1653625623569&producttype=0" \
+                      --compressed \
+                        --insecure

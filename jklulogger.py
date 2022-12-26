@@ -1,5 +1,6 @@
-import requests
+from requests import post as post_request
 from requests.structures import CaseInsensitiveDict
+from requests.exceptions import ConnectTimeout
 
 username = "YOUR_USERNAME"
 password = "YOUR_PASSWORD"
@@ -16,7 +17,8 @@ headers["Sec-GPC"] = "1"
 headers["User-Agent"] = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36"
 
 data = f"mode=191&username={username}&password={password}&a=1653625623569&producttype=0"
-resp = requests.post(url, headers=headers, data=data)
 
-print(resp.status_code)
-
+try:
+    post_request(url, headers=headers, data=data, timeout=5)
+except ConnectTimeout:
+    pass

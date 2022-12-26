@@ -9,11 +9,12 @@ public class jklulogger {
     private static String username = "YOUR_USERNAME";
     private static String password = "YOUR_PASSWORD";
 
-    public static void donow() throws IOException {
+    public static void connect() throws IOException {
         URL url = new URL("http://172.16.1.1:8090/login.xml");
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
 
         http.setRequestMethod("POST");
+        http.setConnectTimeout(5000);
         http.setDoOutput(true);
         http.setRequestProperty("Accept", "*/*");
         http.setRequestProperty("Accept-Language", "en-GB,en-US;q=0.9,en;q=0.8");
@@ -24,7 +25,8 @@ public class jklulogger {
         http.setRequestProperty("User-Agent",
                 "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36");
 
-        String data = String.format("mode=191&username=%s&password=%s&a=1653625623569&producttype=0", username, password);
+        String data = String.format("mode=191&username=%s&password=%s&a=1653625623569&producttype=0", username,
+                password);
 
         byte[] out = data.getBytes(StandardCharsets.UTF_8);
         OutputStream stream = http.getOutputStream();
@@ -32,15 +34,13 @@ public class jklulogger {
 
         System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
         http.disconnect();
-
     }
 
     public static void main(String[] args) {
         try {
-            donow();
+            connect();
         } catch (IOException e) {
-            System.out.println("eeeeeeee");
-            System.out.println(e);
+
         }
     }
 }
